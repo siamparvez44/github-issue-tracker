@@ -1,25 +1,29 @@
-const allIssuesBtn = document.getElementById("all-issues-btn");
-const openIssuesBtn = document.getElementById("open-issues-btn");
-const closedIssuesBtn = document.getElementById("closed-issues-btn");
-const issueCount = document.getElementById("issue-count");
+let allIssues = [];
 
+const issueCount = document.getElementById("issue-count");
 const issuesContainer = document.getElementById("issues-container");
 
-// 
 // https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q={searchText}
 
 const setActiveTab = (id) => {
     document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("btn-primary"))
     document.getElementById(id).classList.add("btn-primary");
-
+  if (id === "open-issues-btn") {
+    filterIssues("open");
+  } else if (id === "closed-issues-btn") {
+    filterIssues("closed");
+  } else {
+    loadAllIssues();
+  }
 }
+
 
 const loadAllIssues = async () => {
   const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues`;
   const res = await fetch(url);
   const data = await res.json();
-
-  displayAllIssues(data.data);
+  allIssues = data.data;
+  displayIssues(allIssues);
 }
 
 const loadSingleIssue = async (id) => {
@@ -45,7 +49,7 @@ const displaySingleIssue = (issue) => {
               <div class="bg-slate-100 flex justify-between p-6 rounded">
                 <div>
                   <h3 class="text-slate-500">Assignee:</h3>
-                  <h3 class="font-bold">${issue.assignee}</h3>
+                  <h3 class="font-bold">${!issue.assignee ? "No assignee" : issue.assignee}</h3>
                 </div>
 
                 <div>
@@ -62,7 +66,7 @@ const displaySingleIssue = (issue) => {
   document.getElementById("singleModalTrigger").showModal();
 }
 
-const displayAllIssues = (issues) => {
+const displayIssues = (issues) => {
     issuesContainer.innerHTML = "";
     issueCount.innerText = issues.length;
 
@@ -100,6 +104,12 @@ const displayAllIssues = (issues) => {
               </div>`
         issuesContainer.append(issueCard);
     }
+}
+
+
+const filterIssues = (status) => {
+  const filteredIssues = allIssues.filter(issue => issue.status === status);
+  displayIssues(filteredIssues);
 }
 
 loadAllIssues();

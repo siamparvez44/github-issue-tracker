@@ -2,8 +2,20 @@ let allIssues = [];
 
 const issueCount = document.getElementById("issue-count");
 const issuesContainer = document.getElementById("issues-container");
+const searchIssue = document.getElementById("search-issue");
 
-// https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q={searchText}
+searchIssue.addEventListener("input", async function () {
+  const keyword = searchIssue.value.trim().toLowerCase();
+
+  if (keyword != "") {
+    const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${keyword}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    displayIssues(data.data);
+  } else {
+    loadAllIssues();
+  }
+})
 
 const setActiveTab = (id) => {
     document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("btn-primary"))

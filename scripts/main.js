@@ -4,16 +4,44 @@ const issueCount = document.getElementById("issue-count");
 const issuesContainer = document.getElementById("issues-container");
 const searchIssue = document.getElementById("search-issue");
 
+const manageSpinner = (status) => {
+  if (status) {
+    issuesContainer.classList.remove("grid");
+    issuesContainer.classList.add("hidden");
+
+    document.getElementById("issues-spinner").classList.remove("hidden");
+    document.getElementById("issues-spinner").classList.add("flex");
+  } else {
+    issuesContainer.classList.remove("hidden"); 
+    issuesContainer.classList.add("grid");
+
+    document.getElementById("issues-spinner").classList.remove("flex");
+    document.getElementById("issues-spinner").classList.add("hidden");
+
+  }
+}
+
+
+const loadAllIssues = async () => {
+  manageSpinner(true);
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues`;
+  const res = await fetch(url);
+  const data = await res.json();
+  allIssues = data.data;
+  displayIssues(allIssues);
+}
+
+
 searchIssue.addEventListener("input", async function () {
   const keyword = searchIssue.value.trim().toLowerCase();
 
-  if (keyword != "") {
+  if (keyword) {
     const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${keyword}`;
     const res = await fetch(url);
     const data = await res.json();
     displayIssues(data.data);
   } else {
-    loadAllIssues();
+    displayIssues(allIssues)
   }
 })
 
@@ -25,18 +53,10 @@ const setActiveTab = (id) => {
   } else if (id === "closed-issues-btn") {
     filterIssues("closed");
   } else {
-    loadAllIssues();
+    displayIssues(allIssues)
   }
 }
 
-
-const loadAllIssues = async () => {
-  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues`;
-  const res = await fetch(url);
-  const data = await res.json();
-  allIssues = data.data;
-  displayIssues(allIssues);
-}
 
 const loadSingleIssue = async (id) => {
   const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
@@ -115,7 +135,8 @@ const displayIssues = (issues) => {
                 </div>
               </div>`
         issuesContainer.append(issueCard);
-    }
+  }
+  manageSpinner(false);
 }
 
 

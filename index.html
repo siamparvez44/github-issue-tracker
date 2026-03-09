@@ -34,7 +34,7 @@
       }
     </style>
   </head>
-  <body class="min-h-svh min-w-svw flex justify-center items-center bg-slate-5 p-6">
+  <body class="min-h-svh min-w-svw flex justify-center items-center bg-slate-50 p-6">
     <div class="card w-96 bg-base-100 shadow-sm">
       <div class="card-body space-y-4">
         <div class="card-logo text-7xl text-slate-800 mx-auto">
@@ -50,13 +50,13 @@
         <div class="card-form flex flex-col gap-3">
             <div class="username-group">
                 <label for="username">Username</label>
-                <input type="text" placeholder="Enter Username" id="username" class="input my-1" />
+                <input type="text" placeholder="Enter Username" id="username" class="input my-1" value="admin"/>
                 <span class="text-primary text-xs">Default: admin</span>
             </div>
 
             <div class="password-group">
                 <label for="password">Password</label>
-                <input type="text" placeholder="Enter Password" id="password" class="input my-1" />
+                <input type="text" placeholder="Enter Password" id="password" class="input my-1" value="admin123"/>
                 <span class="text-primary text-xs">Default: admin123</span>
             </div>
         </div>
@@ -79,19 +79,6 @@
         </div>
       </div>
     </div>
-
-
-
-
-
-
-    <!-- TODO: Priority ( High ) siamparvez 030920261249 need to take this out before final push -->
-    <div class="fixed bottom-1 right-1 z-50 flex size-6 items-center justify-center rounded-full bg-primary p-3 font-mono text-xs text-white">
-        <div class="block md:hidden">sm</div>
-        <div class="hidden md:block lg:hidden">md</div>
-        <div class="hidden lg:block xl:hidden">lg</div>
-        <div class="hidden xl:block 2xl:hidden">xl</div>
-        <div class="hidden 2xl:block">2xl</div>
-    </div>
+    <script src="./scripts/login.js"></script>
   </body>
 </html>

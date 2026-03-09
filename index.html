@@ -1,30 +1,97 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - GitHub Issue Tracker</title>
 
     <!-- daisyui+tailwind -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <!-- google font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet" />
 
     <!-- font awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
 
     <style>
-        * {
-            font-family: "Inter", sans-serif;
-            font-optical-sizing: auto;
-        }
+      * {
+        font-family: 'Inter', sans-serif;
+        font-optical-sizing: auto;
+      }
     </style>
-</head>
-<body>
-    <div class="border-red-200 hover:border-neutral-700 transition-colors duration-300 border">saasddddddddas</div>
-</body>
+  </head>
+  <body class="min-h-svh min-w-svw flex justify-center items-center bg-slate-5 p-6">
+    <div class="card w-96 bg-base-100 shadow-sm">
+      <div class="card-body space-y-4">
+        <div class="card-logo text-7xl text-slate-800 mx-auto">
+            <i class="fa-brands fa-github"></i>
+        </div>
+
+        <div class="text-center">
+            <h2 class="card-title flex-col">GitHub Issues Tracker</h2>
+            <h3 class="card-subtitle text-slate-500">Sign in to manage your issues</h3>
+        </div>
+
+
+        <div class="card-form flex flex-col gap-3">
+            <div class="username-group">
+                <label for="username">Username</label>
+                <input type="text" placeholder="Enter Username" id="username" class="input my-1" />
+                <span class="text-primary text-xs">Default: admin</span>
+            </div>
+
+            <div class="password-group">
+                <label for="password">Password</label>
+                <input type="text" placeholder="Enter Password" id="password" class="input my-1" />
+                <span class="text-primary text-xs">Default: admin123</span>
+            </div>
+        </div>
+
+        <div class="card-actions">
+            <button id="signin-btn" class="btn btn-block btn-primary">Sign In</button>
+        </div>
+
+        <div class="card-divider relative flex items-center justify-center">
+            <hr class="text-slate-300 absolute w-full z-0"/>
+            <h4 class="uppercase text-center z-10 bg-white px-2">Or</h4>
+        </div>
+
+        <div class="demo text-center">
+            <h4 class="mb-2 text-slate-500 text-xs">Demo Credentials:</h4>
+            <div class="bg-slate-100 p-6">
+                <h5><span class="font-bold">Username:</span> admin</h5>
+                <h5><span class="font-bold">Password:</span> admin123</h5>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+    <!-- TODO: Priority ( High ) siamparvez 030920261249 need to take this out before final push -->
+    <div class="fixed bottom-1 right-1 z-50 flex size-6 items-center justify-center rounded-full bg-primary p-3 font-mono text-xs text-white">
+        <div class="block md:hidden">sm</div>
+        <div class="hidden md:block lg:hidden">md</div>
+        <div class="hidden lg:block xl:hidden">lg</div>
+        <div class="hidden xl:block 2xl:hidden">xl</div>
+        <div class="hidden 2xl:block">2xl</div>
+    </div>
+  </body>
 </html>

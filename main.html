@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="./assets/Aperture.png"
+      type="image/x-icon" />
     <title>Dashboard - GitHub Issue Tracker</title>
 
     <!-- daisyui+tailwind -->
@@ -34,16 +38,20 @@
       }
     </style>
   </head>
-  <body class="min-h-svh min-w-svw bg-slate-50">
-    <div class="navbar bg-base-100 shadow-sm px-6">
-      <div class="flex-1 flex gap-1 items-center">
-        <i class="fa-brands fa-github text-5xl text-slate-800"></i>
-        <h3 class="text-xl font-bold hidden lg:block">GitHub Issues Tracker</h3>
+  <body class="min-h-svh bg-slate-50">
+    <div class="navbar bg-base-100 px-6 shadow-sm">
+      <div class="flex items-center flex-1 gap-1">
+        <i class="fa-brands fa-github text-slate-800 text-5xl"></i>
+        <h3 class="lg:block hidden text-xl font-bold">GitHub Issues Tracker</h3>
       </div>
       <div class="flex gap-2">
         <label class="input">
           <i class="fa-solid fa-magnifying-glass text-slate-500"></i>
-          <input type="search" class="grow" placeholder="Search issues..." />
+          <input
+            type="search"
+            id="search-issue"
+            class="grow"
+            placeholder="Search issues..." />
         </label>
         <button type="button" class="btn btn-primary min-w-24 lg:min-w-32">
           <i class="fa-solid fa-plus"></i> New Issue
@@ -51,49 +59,82 @@
       </div>
     </div>
 
-    <div class="container mx-auto px-5 py-12 space-y-4">
-        <div class="card w-full bg-base-100 shadow-sm">
-            <div class="card-body space-y-4">
-                <div class="card-actions">
-                    <button id="all-issues-btn" onclick="setActiveTab('all-issues-btn')" class="tab-btn btn btn-primary min-w-24 lg:min-w-32">All</button>
-                    <button id="open-issues-btn" onclick="setActiveTab('open-issues-btn')" class="tab-btn btn min-w-24 lg:min-w-32">Open</button>
-                    <button id="closed-issues-btn" onclick="setActiveTab('closed-issues-btn')" class="tab-btn btn min-w-24 lg:min-w-32">Closed</button>
-                </div>
-            </div>
+    <div class="container px-5 py-12 mx-auto space-y-4">
+      <div class="card bg-base-100 w-full shadow-sm">
+        <div class="card-body space-y-4">
+          <div class="card-actions">
+            <button
+              id="all-issues-btn"
+              onclick="setActiveTab('all-issues-btn')"
+              class="tab-btn btn btn-primary min-w-24 lg:min-w-32">
+              All
+            </button>
+            <button
+              id="open-issues-btn"
+              onclick="setActiveTab('open-issues-btn')"
+              class="tab-btn btn min-w-24 lg:min-w-32">
+              Open
+            </button>
+            <button
+              id="closed-issues-btn"
+              onclick="setActiveTab('closed-issues-btn')"
+              class="tab-btn btn min-w-24 lg:min-w-32">
+              Closed
+            </button>
+          </div>
         </div>
-        <div class="card w-full bg-base-100 shadow-sm bg-neutral-50 overflow-hidden">
-            <div class="card-actions bg-white border-b border-slate-200 p-6 flex justify-between items-center flex-wrap gap-5">
-                <div class="flex gap-2">
-                    <img src="./assets/Aperture.png" alt="Aperture" class="size-12 bg-primary/20 p-2 rounded-full">
-                    <div>
-                        <h3 class="font-bold text-xl"><span id="issue-count">0</span> Issues</h3>
-                        <p class="text-slate-500 text-sm">Track and manage your project issues</p>
-                    </div>
-                </div>
-
-                <div class="text-sm space-x-2">
-                    <span><i class="fa-solid fa-circle text-success"></i> Open</span>
-                    <span><i class="fa-solid fa-circle text-secondary"></i> Closed</span>
-                </div>
+      </div>
+      <div class="card bg-neutral-50 w-full overflow-hidden shadow-sm">
+        <div
+          class="card-actions border-slate-200 flex flex-wrap items-center justify-between gap-5 p-6 bg-white border-b">
+          <div class="flex gap-2">
+            <div
+              class="badge bg-primary/20 badge-lg aspect-square size-12 p-2 rounded-full">
+              <img
+                src="./assets/Aperture.png"
+                alt="Aperture"
+                class="w-full h-full" />
             </div>
-
-            <div class="card-body space-y-4">
-                <!-- this is where I will put the data -->
-                 <div id="issue-container">
-
-                 </div>
+            <div>
+              <h3 class="text-xl font-bold">
+                <span id="issue-count">0</span> Issues
+              </h3>
+              <p class="text-slate-500 text-sm">
+                Track and manage your project issues
+              </p>
             </div>
+          </div>
+
+          <div class="space-x-2 text-sm">
+            <span><i class="fa-solid fa-circle text-success"></i> Open</span>
+            <span
+              ><i class="fa-solid fa-circle text-purple-500"></i> Closed</span
+            >
+          </div>
         </div>
+
+        <div class="card-body space-y-4">
+          <div id="issues-container" class="md:grid-cols-2 lg:grid-cols-4 grid items-stretch grid-cols-1 gap-6"></div>
+        </div>
+      </div>
     </div>
 
-    
+
+    <dialog id="singleModalTrigger" class="modal modal-bottom sm:modal-middle">
+      <div class="modal-box">
+        <div id="single-issue-container"></div>
+      </div>
+    </dialog>
+
+
     <!-- TODO: Priority ( High ) siamparvez 030920261249 need to take this out before final push -->
-    <div class="fixed bottom-1 right-1 z-50 flex size-6 items-center justify-center rounded-full bg-primary p-3 font-mono text-xs text-white">
-        <div class="block md:hidden">sm</div>
-        <div class="hidden md:block lg:hidden">md</div>
-        <div class="hidden lg:block xl:hidden">lg</div>
-        <div class="hidden xl:block 2xl:hidden">xl</div>
-        <div class="hidden 2xl:block">2xl</div>
+    <div
+      class="bottom-1 right-1 size-6 bg-primary fixed z-50 flex items-center justify-center p-3 font-mono text-xs text-white rounded-full">
+      <div class="md:hidden block">sm</div>
+      <div class="md:block lg:hidden hidden">md</div>
+      <div class="lg:block xl:hidden hidden">lg</div>
+      <div class="xl:block 2xl:hidden hidden">xl</div>
+      <div class="2xl:block hidden">2xl</div>
     </div>
 
     <script src="./scripts/main.js"></script>
